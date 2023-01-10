@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 //import { useNavigate } from "react-router-dom";
 import apiClient from "../../api/apiClient";
 
@@ -37,6 +38,7 @@ const loginSlice = createSlice({
                 state.data = action.payload;
                 state.isLoading = false;
                 state.hasError = false
+                action.payload.isSuccess?toast.success("Success"):toast.error("Please check username or password")
             })
             .addCase(loginThunk.rejected, (state, action) => {
                 state.hasError = true

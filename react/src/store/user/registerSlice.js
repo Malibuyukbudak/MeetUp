@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import apiClient from "../../api/apiClient";
 
 export const registerThunk = createAsyncThunk('register/registerThunk',
@@ -34,6 +35,7 @@ const registerSlice = createSlice({
                 state.data = action.payload;
                 state.isLoading = false;
                 state.hasError = false
+                action.payload.isSuccess?toast.success("Successful Registration"):toast.error("Check the information. Username and email may have been used before.")
             })
             .addCase(registerThunk.rejected, (state, action) => {
                 state.hasError = true
