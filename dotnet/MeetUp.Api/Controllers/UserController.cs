@@ -3,9 +3,12 @@ using MeetUp.Application.Commands.User.CreateUser;
 using MeetUp.Application.Commands.User.LoginUser;
 using MeetUp.Application.Commands.User.LogoutUser;
 using MeetUp.Application.Commands.User.RefreshToken;
+using MeetUp.Application.Queries.Event.GetByIdEvent;
+using MeetUp.Application.Queries.User.GetUser;
 using MeetUp.Core.DTOs;
 using MeetUp.Core.Utilities.Result;
 using MeetUp.Domain.Entities;
+using MeetUp.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,6 +50,13 @@ namespace MeetUp.Api.Controllers
             var data = await _mediatR.Send(new LogoutUserCommand());
             
             return Result<bool>.Success(data);
+        }
+        [Authorize(AuthenticationSchemes = "user")]
+        [HttpGet("/api/User")]
+        public async Task<Result<AppUser>> GetUser()
+        {
+            var data = await _mediatR.Send(new GetUserQuery());
+            return Result<AppUser>.Success(data);
         }
     }
 }
