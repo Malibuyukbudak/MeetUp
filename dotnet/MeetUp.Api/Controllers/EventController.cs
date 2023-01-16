@@ -38,13 +38,22 @@ namespace MeetUp.Api.Controllers
             else return Result.Error("Error");
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<Result> UpdateEvent([FromBody] Event eventProp, int id)
-        //{
-        //    var result = await _mediatR.Send(new UpdateEventCommand { Event = eventProp, Id = id });
-        //    if (result == true) return Result.Success("Event successfully updated");
-        //    else return Result.Error("Error");
-        //}
+        [HttpPut("{id}")]
+        public async Task<Result> UpdateEvent([FromBody] Event eventProp, int id)
+        {
+            var result = await _mediatR.Send(new UpdateEventCommand { 
+                Id = id,
+                Capacity=eventProp.Capacity, 
+                CategoryId=eventProp.CategoryId,
+                City=eventProp.City,
+                Description=eventProp.Description,
+                State=eventProp.State,
+                Title=eventProp.Title,
+                Image=eventProp.Image
+                 });
+            if (result == true) return Result.Success("Event successfully updated");
+            else return Result.Error("Error");
+        }
 
         [HttpDelete("{id}")]
         public async Task<Result> DeleteEvent(int id)
