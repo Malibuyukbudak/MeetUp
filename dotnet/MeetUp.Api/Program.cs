@@ -28,8 +28,9 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 {
-    opt.UseSqlServer("Server=sql-server-db;Database=Meet_Up;User Id=sa;Password=super_duper_1234;MultipleActiveResultSets=true;TrustServerCertificate=True");
+    opt.UseSqlServer("Data Source=127.0.0.1,4444;User ID=sa;Password=super_duper_1234;Database=Meet_Up;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
     //Server=sql-server-db;Database=Meet_Up;User Id=sa;Password=super_duper_1234;MultipleActiveResultSets=true
+    //Data Source=127.0.0.1,4444;User ID=sa;Password=********;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
 }
 );
 builder.Services.AddControllers();
